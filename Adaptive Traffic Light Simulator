@@ -1,0 +1,186 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+#include <thread>
+#include <chrono>
+
+using namespace std;
+
+// Structure to store traffic sensor information
+struct Road
+{
+    string name;
+    int vehicles;
+    int greenTime;
+};
+
+// Function to calculate green signal time
+int calculateGreenTime(int vehicles)
+{
+    if (vehicles <= 5)
+        return 15;
+    else if (vehicles <= 15)
+        return 25;
+    else if (vehicles <= 30)
+        return 35;
+    else
+        return 45;
+}
+
+// Display traffic information
+void displayTraffic(const vector<Road>& roads)
+{
+    cout << "TRAFFIC DATA \n";
+
+    for (const Road& road : roads)
+    {
+        cout << road.name
+             << " | Vehicles: " << road.vehicles
+             << " | Green Time: " << road.greenTime << " seconds\n";
+    }
+}
+
+// Find road with highest traffic
+int findHighestTraffic(const vector<Road>& roads)
+{
+    int index = 0;
+
+    for (int i = 1; i < roads.size(); i++)
+    {
+        if (roads[i].vehicles > roads[index].vehicles)
+        {
+            index = i;
+        }
+    }
+
+    return index;
+}
+
+// Simulate traffic signal
+void activateSignal(const Road& road)
+{
+    cout << "\n";
+    cout << "GREEN SIGNAL -> " << road.name << "\n";
+    cout << "Vehicles detected: " << road.vehicles << "\n";
+    cout << "Green time: " << road.greenTime << " seconds\n";
+
+    cout << "RED SIGNAL -> Other Roads\n";
+    cout << "\n";
+
+    // Small delay to simulate real signal operation
+    this_thread::sleep_for(chrono::seconds(2));
+
+    cout << "GREEN SIGNAL -> " << road.name << " : OFF\n";
+}
+
+// Emergency vehicle function
+void emergencyVehicle(vector<Road>& roads)
+{
+    int roadNumber;
+
+    cout << "***** EMERGENCY VEHICLE DETECTED *****\n";
+
+    cout << "Enter road number (1-4): ";
+    cin >> roadNumber;
+
+    if (roadNumber < 1 || roadNumber > 4)
+    {
+        cout << "Invalid road number!\n";
+        return;
+    }
+
+    int index = roadNumber - 1;
+
+    cout << "\nPriority given to " << roads[index].name << "!\n";
+    cout << "GREEN SIGNAL -> " << roads[index].name << "\n";
+    cout << "RED SIGNAL -> Other Roads\n";
+
+    this_thread::sleep_for(chrono::seconds(2));
+
+    cout << "Emergency vehicle passed\n";
+}
+
+// Main program
+int main()
+{
+    vector<Road> roads =
+    {
+        {"Road A", 0, 0},
+        {"Road B", 0, 0},
+        {"Road C", 0, 0},
+        {"Road D", 0, 0}
+    };
+
+    int choice;
+    cout<<"\n";
+    cout<<"Note: Always enter NON_NEGATIVE and NUMERIC value only :"<<endl;
+    cout << "SMART TRAFFIC SIGNAL CONTROLLER\n";
+
+    while (true)
+    {
+        cout << "MENU \n";
+        cout << "1. Enter Traffic Sensor Data\n";
+        cout << "2. Display Traffic Data\n";
+        cout << "3. Activate Adaptive Signal\n";
+        cout << "4. Emergency Vehicle Mode\n";
+        cout << "5. Exit\n";
+        cout << "Enter your choice: ";
+
+        cin >> choice;
+
+        // Enter simulated sensor data
+        if (choice == 1)
+        {
+            cout << "\nEnter number of vehicles detected by sensors:\n";
+
+            for (Road& road : roads)
+            {
+                cout << road.name << ": ";
+                cin >> road.vehicles;
+
+                // Calculate green time automatically
+                road.greenTime = calculateGreenTime(road.vehicles);
+            }
+
+            cout << "\nSensor data recorded successfully!\n";
+        }
+
+        // Display sensor data
+        else if (choice == 2)
+        {
+            displayTraffic(roads);
+        }
+
+        // Adaptive traffic signal
+        else if (choice == 3)
+        {
+            int highestTraffic = findHighestTraffic(roads);
+
+            cout << "\nHighest traffic detected on "
+                 << roads[highestTraffic].name << ".\n";
+
+            activateSignal(roads[highestTraffic]);
+        }
+
+        // Emergency vehicle mode
+        else if (choice == 4)
+        {
+            emergencyVehicle(roads);
+        }
+
+        // Exit
+        else if (choice == 5)
+        {
+            cout << "\nSystem shutting down...\n";
+            break;
+        }
+
+        else
+        {
+            cout << "\nInvalid choice! Please try again.\n";
+        }
+    }
+
+    return 0;
+}
