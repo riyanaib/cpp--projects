@@ -2,9 +2,6 @@
 #include <vector>
 #include <string>
 
-#include <thread>
-#include <chrono>
-
 using namespace std;
 
 // Structure to store traffic sensor information
