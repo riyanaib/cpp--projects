@@ -172,7 +172,7 @@ int main()
         // Exit
         else if (choice == 5)
         {
-            cout << "\nSystem shutting down...\n";
+            cout << "\nSystem is shutting down...\n";
             break;
         }
 
