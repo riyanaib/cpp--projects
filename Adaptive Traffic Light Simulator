@@ -75,14 +75,22 @@ void activateSignal(const Road& road)
 }
 
 // Emergency vehicle function
+// Emergency vehicle function
 void emergencyVehicle(vector<Road>& roads)
 {
     int roadNumber;
 
     cout << "***** EMERGENCY VEHICLE DETECTED *****\n";
-
     cout << "Enter road number (1-4): ";
-    cin >> roadNumber;
+
+    // Protected emergency input check
+    if (!(cin >> roadNumber))
+    {
+        cout << "Invalid input! Please enter a number.\n";
+        cin.clear();
+        cin.ignore(10000, '\n');
+        return;
+    }
 
     if (roadNumber < 1 || roadNumber > 4)
     {
@@ -127,7 +135,14 @@ int main()
         cout << "5. Exit\n";
         cout << "Enter your choice: ";
 
-        cin >> choice;
+        // Protected menu input check
+        if (!(cin >> choice))
+        {
+            cout << "\nInvalid input! Please enter a numeric value.\n\n";
+            cin.clear();
+            cin.ignore(10000, '\n');
+            continue;
+        }
 
         // Enter simulated sensor data
         if (choice == 1)
@@ -136,8 +151,27 @@ int main()
 
             for (Road& road : roads)
             {
-                cout << road.name << ": ";
-                cin >> road.vehicles;
+                while (true)
+                {
+                    cout << road.name << ": ";
+                    
+                    // Protected vehicle count input check
+                    if (!(cin >> road.vehicles))
+                    {
+                        cout << "Invalid input. Please enter a number.\n";
+                        cin.clear();
+                        cin.ignore(10000, '\n');
+                        continue;
+                    }
+
+                    if (road.vehicles < 0)
+                    {
+                        cout << "Vehicles cannot be negative. Try again.\n";
+                        continue;
+                    }
+
+                    break;
+                }
 
                 // Calculate green time automatically
                 road.greenTime = calculateGreenTime(road.vehicles);
