@@ -1,0 +1,91 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Function to check temperature status
+void checkTemperature(double temperature)
+{
+    cout << "\nTemperature: " << temperature << " °C\n";
+
+    if (temperature < 30)
+    {
+        cout << "Status: NORMAL\n";
+        cout << "Fan: OFF\n";
+    }
+    else if (temperature < 40)
+    {
+        cout << "Status: WARNING\n";
+        cout << "Fan: ON\n";
+    }
+    else
+    {
+        cout << "Status: CRITICAL\n";
+        cout << "Fan: ON\n";
+        cout << "ALERT: Temperature is too high!\n";
+    }
+}
+
+int main()
+{
+    int numberOfReadings;
+    cout << "\n";
+    cout << "TEMPERATURE MONITORING SYSTEM\n";
+    
+
+    cout << "\nEnter number of temperature readings: ";
+    cin >> numberOfReadings;
+
+    vector<double> temperatures;
+
+    // Taking temperature readings
+    for (int i = 0; i < numberOfReadings; i++)
+    {
+        double temperature;
+
+        cout << "Enter temperature reading "
+             << i + 1 << ": ";
+
+        cin >> temperature;
+
+        temperatures.push_back(temperature);
+    }
+
+    // Displaying results
+    cout << "\nSENSOR REPORT\n";
+
+    for (int i = 0; i < temperatures.size(); i++)
+    {
+        cout << "\nReading " << i + 1 << ":";
+        checkTemperature(temperatures[i]);
+    }
+
+    // Calculate average temperature
+    double sum = 0;
+
+    for (double temperature : temperatures)
+    {
+        sum += temperature;
+    }
+
+    double average = sum / temperatures.size();
+
+    cout << "\n";
+    cout << "Average Temperature: " << average << " °C\n";
+
+    if (average >= 40)
+    {
+        cout << "Overall Status: CRITICAL\n";
+    }
+    else if (average >= 30)
+    {
+        cout << "Overall Status: WARNING\n";
+    }
+    else
+    {
+        cout << "Overall Status: NORMAL\n";
+    }
+
+    cout << "\n";
+
+    return 0;
+}
