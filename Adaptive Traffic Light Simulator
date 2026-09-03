@@ -68,9 +68,7 @@ void activateSignal(const Road& road)
     cout << "RED SIGNAL -> Other Roads\n";
     cout << "\n";
 
-    // Small delay to simulate real signal operation
-    this_thread::sleep_for(chrono::seconds(2));
-
+    
     cout << "GREEN SIGNAL -> " << road.name << " : OFF\n";
 }
 
@@ -103,9 +101,6 @@ void emergencyVehicle(vector<Road>& roads)
     cout << "\nPriority given to " << roads[index].name << "!\n";
     cout << "GREEN SIGNAL -> " << roads[index].name << "\n";
     cout << "RED SIGNAL -> Other Roads\n";
-
-    this_thread::sleep_for(chrono::seconds(2));
-
     cout << "Emergency vehicle passed\n";
 }
 
