@@ -9,6 +9,7 @@ I am interested in both electronics and software development, and I am tryingto 
 Here are the projects I've worked on so far:
 
 **Project 1 - Traffic Light Simulator**
+
 This is a simple C++ project that simulates a traffic light system.
 The program changes the traffic signal between Red, Green and Yellow using basic programming logic. I made this project to practice conditional statements, loops and functions while working on a simple real-world problem.
 Things I used:
@@ -20,6 +21,7 @@ Things I used:
 - State-based logic
 
 **Project 2 - Temperature Monitoring & Alert System**
+
 This project is a simple C++ simulation for monitoring temperature readings.
 The user enters temperature values and the program checks whether the temperature is Normal, Warning or Critical. It also simulates turning a fan ON or OFF depending on the temperature. I made this project to understand how programming can be used for simple monitoring and control systems.
 Things I used:
@@ -34,6 +36,7 @@ Things I used:
 
 
 **Skills I'm Learning:**
+
 --> Programming
   - C++
   - C
